@@ -5,8 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:udhar_app/widgets/user_image_picker.dart';
-
-final _firebase = FirebaseAuth.instance;
+import '../services/auth_service.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -16,6 +15,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  AuthService authService = AuthService();
   final _form = GlobalKey<FormState>();
   var _isLogin = true;
   var _enteredEmail = '';
@@ -35,25 +35,14 @@ class _AuthScreenState extends State<AuthScreen> {
       });
       if (_isLogin) {
         //login code
-        final userCredentials = await _firebase.signInWithEmailAndPassword(
-            email: _enteredEmail, password: _enteredPassword);
-        print(userCredentials);
+        // final userCredentials = await _firebase.signInWithEmailAndPassword(
+        //     email: _enteredEmail, password: _enteredPassword);
+        // print(userCredentials);
+        authService.login(_enteredEmail, _enteredPassword);
       } else {
         //signup code
 
-        final userCredentials = await _firebase.createUserWithEmailAndPassword(
-            email: _enteredEmail, password: _enteredPassword);
-        final storageRef = FirebaseStorage.instance
-            .ref()
-            .child('user_images')
-            .child('${userCredentials.user!.uid}.jpg');
-        await storageRef.putFile(_selectedImage!);
-        final imageUrl = await storageRef.getDownloadURL();
-        print(imageUrl);
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userCredentials.user!.uid)
-            .set({'email': _enteredEmail, 'image_url': imageUrl});
+        authService.signup(_enteredEmail, _enteredPassword, _selectedImage);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

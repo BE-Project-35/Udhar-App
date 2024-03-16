@@ -43,6 +43,7 @@ dependencies:
   permission_handler: ^11.0.0
   fast_contacts: ^3.0.3
   firebase_database: ^10.4.0
+  uuid: ^4.2.2
 
 dev_dependencies:
   flutter_test:
