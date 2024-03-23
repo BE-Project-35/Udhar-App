@@ -27,13 +27,11 @@ class AuthService {
         .child('${userCredentials.user!.uid}.jpg');
     await storageRef.putFile(selectedImage!);
     final imageUrl = await storageRef.getDownloadURL();
-    print(imageUrl);
-    var uuid = Uuid();
 
-    String uid = uuid.v4();
+    final currentUser = FirebaseAuth.instance.currentUser!.uid;
 
     UdharUser userDetails = UdharUser(
-        uid: uid,
+        uid: currentUser,
         email: email,
         phone: "",
         udharScore: 0,
@@ -45,7 +43,10 @@ class AuthService {
     Map<String, dynamic> userData = userDetails.toJson();
 
     // Write user details to the database
-    await dbref.child("users").push().set(userData);
+    await dbref.child('users').child(currentUser).set(userData);
+    //  firebase.database().ref('users/' + user.uid).set(user).catch(error => {
+    //     console.log(error.message)
+    // });
 
     print('User details stored successfully');
   }

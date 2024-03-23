@@ -7,19 +7,24 @@ class UdharTransaction {
   final int amount;
   final int ROI;
   final String requestedDt;
-  late String acceptedDt;
+  late String acceptedDt = "";
   final String end;
   final String status;
+  final String borrowerName;
+  final String lenderName;
 
-  UdharTransaction(
-      {required this.transactionID,
-      required this.borrowerID,
-      required this.lenderID,
-      required this.ROI,
-      required this.amount,
-      required this.end,
-      required this.requestedDt,
-      required this.status});
+  UdharTransaction({
+    required this.transactionID,
+    required this.borrowerID,
+    required this.lenderID,
+    required this.ROI,
+    required this.amount,
+    required this.end,
+    required this.requestedDt,
+    required this.status,
+    required this.borrowerName,
+    required this.lenderName,
+  });
 
   factory UdharTransaction.fromJson(Map<dynamic, dynamic> json) {
     return UdharTransaction(
@@ -31,6 +36,8 @@ class UdharTransaction {
       requestedDt: json['requestedDt'] ?? '',
       status: json['status'] ?? '',
       end: json['end'] ?? '',
+      borrowerName: json['borrowerName'] ?? '',
+      lenderName: json['lenderName'] ?? '',
     );
   }
 
@@ -44,6 +51,8 @@ class UdharTransaction {
       'requestedDT': requestedDt,
       'status': status,
       'end': end,
+      'lenderName': lenderName,
+      'borrowerName': borrowerName,
     };
   }
 }
