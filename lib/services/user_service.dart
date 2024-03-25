@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -27,4 +28,59 @@ class UserService {
     }
     return null;
   }
+
+  // Future<List<UdharUser>> getUdharUsers() {
+  //   List<UdharUser> itemlist = [];
+  //   final currentUser = FirebaseAuth.instance.currentUser;
+
+  //   dbref.child('users').once().then((DataSnapshot snapshot) {
+  //         if (snapshot.value != null) {
+  //           Map<dynamic, dynamic> values =
+  //               snapshot.value as Map<dynamic, dynamic>;
+
+  //           values.forEach((key, value) {
+  //             if (value['uid'] != currentUser!.uid) {
+  //               itemlist.add(UdharUser.fromJson(value));
+  //             }
+  //           });
+  //         }
+  //       }
+  //   return itemlist.f;
+  // }
+
+  Future<List<UdharUser>> getUdharUsers() async {
+    List<UdharUser> userList = [];
+
+    try {
+      // Replace 'users' with the name of your table in the database
+      DataSnapshot snapshot = await dbref.child('users').get();
+
+      if (snapshot.value != null) {
+        Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+        values.forEach((key, value) {
+          userList.add(UdharUser.fromJson(
+              value)); // Replace UdharUser.fromJson with your parsing logic
+        });
+      }
+    } catch (error) {
+      // Handle errors if any
+      print("Error: $error");
+    }
+
+    return userList;
+  }
+
+  //void _retrieveItemList() {
+//   dbref.onValue.listen((event) {
+//     if (event.snapshot.value != null) {
+//       Map<dynamic, dynamic> values = event.snapshot.value;
+//       List<UdharTransaction> itemList = [];
+//       values.forEach((key, value) {
+//         itemList.add(UdharTransaction.fromJson(value));
+//       });
+//       setState(() {
+//         _itemList = itemList;
+//       });
+//     }
+//   });
 }

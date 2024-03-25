@@ -5,6 +5,7 @@ import 'package:udhar_app/screens/recieved_udhar_requests.dart';
 import 'package:udhar_app/screens/splash.dart';
 import 'package:udhar_app/screens/sent_udhar_requests.dart';
 import 'package:udhar_app/screens/test_screen.dart';
+import 'package:udhar_app/screens/users_list.dart';
 import 'screens/auth.dart';
 import 'screens/welcome.dart';
 import './screens//sent_udhar_requests.dart';
@@ -40,7 +41,7 @@ class App extends StatelessWidget {
             }
             if (snapshot.hasData) {
               // return const AddressBook();
-              return const RecievedUdharRequests();
+              return const UserList();
             }
             return const AuthScreen();
             // return const WelcomeScreen();
