@@ -10,8 +10,8 @@ class TransactionService {
   final DatabaseReference dbref = FirebaseDatabase.instance.ref();
   var uuid = Uuid();
 
-  void sendUdharRequest(String lID, int amount, int roi, String end,
-      String borrowerName, String lenderName) async {
+  void sendUdharRequest(
+      String lID, int amount, int roi, String end, String lenderName) async {
     print(end);
     final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -25,7 +25,7 @@ class TransactionService {
         requestedDt: end,
         status: "requested",
         end: end,
-        borrowerName: borrowerName,
+        borrowerName: currentUser.email.toString(),
         lenderName: lenderName);
     Map<String, dynamic> udharData = udhar.toJson();
 

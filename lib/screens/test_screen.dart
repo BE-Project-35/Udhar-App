@@ -63,8 +63,8 @@ class _TestState extends State<Test> {
     String? email = currentUser?.email;
     print("entering here");
     try {
-      ts.sendUdharRequest(currentUser!.uid, "exHunjsIN3gDcxLbB0iBPHJVVyg1", 0,
-          4, x, email!, "brincy@xyz.com");
+      ts.sendUdharRequest(
+          "exHunjsIN3gDcxLbB0iBPHJVVyg1", 0, 4, x, "brincy@xyz.com");
     } on FirebaseException catch (e) {
       print(e.code);
     }
