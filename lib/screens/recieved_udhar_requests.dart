@@ -69,7 +69,7 @@ class RecievedUdharRequests extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Text('No dat available');
+                return const Text('No data available');
               } else {
                 // Render the list of custom objects
                 return ListView.builder(
