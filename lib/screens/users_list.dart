@@ -59,7 +59,7 @@ class _UserListState extends State<UserList> {
                   context: context,
                   builder: (BuildContext context) {
                     return SizedBox(
-                      height: 400,
+                      height: 600,
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
