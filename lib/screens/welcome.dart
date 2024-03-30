@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:udhar_app/screens/home.dart';
 import 'package:udhar_app/screens/sent_udhar_requests.dart';
 import './test_screen.dart';
 
@@ -16,7 +17,6 @@ class WelcomeScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                getName();
                 FirebaseAuth.instance.signOut();
               },
               icon: Icon(
@@ -27,14 +27,7 @@ class WelcomeScreen extends StatelessWidget {
           ],
         ),
         body: const Center(
-          child: Test(),
+          child: Home(),
         ));
-  }
-
-  void getName() {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      print(currentUser?.email);
-    }
   }
 }
