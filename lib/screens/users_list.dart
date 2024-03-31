@@ -32,40 +32,60 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    backgroundColor: Color.fromARGB(255, 88, 55, 173),
       body: FutureBuilder<List<UdharUser>>(
         future: userList,
         builder: (context, snapshot) {
           List<Widget> children = [];
           if (snapshot.hasData) {
             for (var element in snapshot.data!) {
-              Widget listElement = ListTile(
-                title: Text(element.email),
-                subtitle: Text(element.udharScore.toString()),
-                onTap: () => showModalBottomSheet<void>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      height: 600,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Text('Modal BottomSheet'),
-                            ElevatedButton(
-                              child: const Text('Close BottomSheet'),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
-              children.add(listElement);
-            }
-          } else if (snapshot.hasError) {
+              
+            Widget listElement = 
+            Padding(
+  padding: const EdgeInsets.fromLTRB(10.0,10.0,10.0,0.0),
+  child:
+  Column(
+  children: [
+    ListTile(  
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0), // Adjust the value as needed
+    ),  
+      tileColor: Colors.white,
+      leading: const Icon(Icons.account_circle_sharp),
+      title: Text(element.email),
+      subtitle: Text(element.udharScore.toString()),
+      onTap: () => showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return SizedBox(
+            height: 600,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('Modal BottomSheet'),
+                  ElevatedButton(
+                    child: const Text('Close BottomSheet'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+    // const Divider(
+    // color:  Color.fromARGB(255, 88, 55, 173),
+    // ),
+  ],
+  ),
+);
+    children.add(listElement);
+    }
+    } 
+          else if (snapshot.hasError) {
             children = <Widget>[
               const Icon(
                 Icons.error_outline,

@@ -13,7 +13,10 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('udhar please'),
+          backgroundColor: Color.fromARGB(255, 6, 3, 14),
+          title: const Text('Udhar please', 
+          style:TextStyle (color:Color.fromARGB(255,255, 255,255)),
+          ),
           actions: [
             IconButton(
               onPressed: () {

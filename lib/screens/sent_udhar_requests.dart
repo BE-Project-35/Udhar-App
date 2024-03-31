@@ -11,6 +11,7 @@ class SentUdharRequests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 88, 55, 173),
         body: Center(
       child: StreamBuilder<List<UdharTransaction>>(
         stream: TransactionService().getSentUdharRequests(),
@@ -20,16 +21,42 @@ class SentUdharRequests extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Text('No data available');
+            return Container(
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 88, 55, 173),),
+      child: const Center(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.warning,
+          color: Colors.white,
+          size: 32,
+        ),
+        SizedBox(width: 8), 
+        Text(
+          'No data Available',
+          textDirection: TextDirection.ltr,
+          
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+      ]
+      ),
+      ),
+    );
           } else {
             // Render the list of custom objects
             return ListView.builder(
+              padding: const EdgeInsets.fromLTRB(6.0,7.0,6.0,15.0),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
                     title: Text(
-                        "Udhar Request sent to ${snapshot.data![index].lenderName}"),
+                        "Udhaar Request sent to ${snapshot.data![index].lenderName}"),
+                        leading: const Icon(Icons.account_circle_sharp),
                     subtitle: Text(snapshot.data![index].status),
                     trailing: Text(snapshot.data![index].amount.toString()),
                   ),
