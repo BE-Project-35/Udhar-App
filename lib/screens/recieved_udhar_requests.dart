@@ -46,7 +46,9 @@ class RecievedUdharRequests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+      backgroundColor: Color.fromARGB(255, 88, 55, 173),
+      
+        body:Center(
       child: StreamBuilder<List<UdharTransaction>>(
         stream: TransactionService().getRecievedUdharRequests(),
         builder: (context, snapshot) {
@@ -55,10 +57,36 @@ class RecievedUdharRequests extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Text('No data available');
+            return Container(
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 88, 55, 173),),
+      child: const Center(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.warning,
+          color: Colors.white,
+          size: 32,
+        ),
+        SizedBox(width: 8), 
+        Text(
+          'No data Available',
+          textDirection: TextDirection.ltr,
+          
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+      ]
+      ),
+      ),
+    );
+          
           } else {
             // Render the list of custom objects
             return ListView.builder(
+              padding: const EdgeInsets.fromLTRB(6.0,7.0,6.0,15.0),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 // return ListTile(
@@ -66,12 +94,15 @@ class RecievedUdharRequests extends StatelessWidget {
                 //   // Customize ListTile as needed
                 // );
                 return Card(
+                  color: const Color.fromARGB(244, 255, 255, 255),
                   child: ListTile(
+                    leading: const Icon(Icons.account_circle_sharp),
                     title: Text(
-                        "Udhar Request Recieved from ${snapshot.data![index].borrowerName}"),
+                        "Request Recieved from ${snapshot.data![index].borrowerName}"),
                     subtitle: Text(snapshot.data![index].status),
                     trailing: Text(snapshot.data![index].amount.toString()),
                   ),
+                          
                 );
               },
             );
