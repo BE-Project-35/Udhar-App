@@ -43,7 +43,8 @@ class TransactionService {
         Map<dynamic, dynamic>? values =
             event.snapshot.value as Map<dynamic, dynamic>?;
         values!.forEach((key, value) {
-          if (value['borrowerID'] == currentUser.uid) {
+          if (value['borrowerID'] == currentUser.uid &&
+              value['status'] == "requested") {
             requestList.add(UdharTransaction.fromJson(value));
           }
           print(requestList);
@@ -63,7 +64,8 @@ class TransactionService {
         Map<dynamic, dynamic>? values =
             event.snapshot.value as Map<dynamic, dynamic>?;
         values!.forEach((key, value) {
-          if (value['lenderID'] == currentUser.uid) {
+          if (value['lenderID'] == currentUser.uid &&
+              value['status'] == "requested") {
             requestList.add(UdharTransaction.fromJson(value));
           }
           print(requestList);

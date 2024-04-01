@@ -11,26 +11,9 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 6, 3, 14),
-          title: const Text('Udhar please', 
-          style:TextStyle (color:Color.fromARGB(255,255, 255,255)),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              icon: Icon(
-                Icons.exit_to_app,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ],
-        ),
-        body: const Center(
-          child: Home(),
-        ));
+    return const Scaffold(
+        body: Center(
+      child: Home(),
+    ));
   }
 }

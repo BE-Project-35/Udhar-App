@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:udhar_app/models/user.dart';
 import 'package:udhar_app/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:udhar_app/widgets/requestform.dart';
+import 'package:udhar_app/widgets/usertile.dart';
 
 class UserList extends StatefulWidget {
   const UserList({super.key});
@@ -27,65 +29,43 @@ class _UserListState extends State<UserList> {
     });
   }
 
+  void openForm(String lenderID, String lenderName) {
+    print("called");
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return RequestForm(lenderID: lenderID, lenderName: lenderName);
+        // child: Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: <Widget>[
+        //     RequestForm(lenderID: lenderID, lenderName: lenderName),
+        //   ],
+        // ),
+      },
+    );
+  }
+
   void requestUdhar() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: Color.fromARGB(255, 88, 55, 173),
+      backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
       body: FutureBuilder<List<UdharUser>>(
         future: userList,
         builder: (context, snapshot) {
           List<Widget> children = [];
           if (snapshot.hasData) {
             for (var element in snapshot.data!) {
-              
-            Widget listElement = 
-            Padding(
-  padding: const EdgeInsets.fromLTRB(10.0,10.0,10.0,0.0),
-  child:
-  Column(
-  children: [
-    ListTile(  
-      shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0), // Adjust the value as needed
-    ),  
-      tileColor: Colors.white,
-      leading: const Icon(Icons.account_circle_sharp),
-      title: Text(element.email),
-      subtitle: Text(element.udharScore.toString()),
-      onTap: () => showModalBottomSheet<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return SizedBox(
-            height: 600,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text('Modal BottomSheet'),
-                  ElevatedButton(
-                    child: const Text('Close BottomSheet'),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    ),
-    // const Divider(
-    // color:  Color.fromARGB(255, 88, 55, 173),
-    // ),
-  ],
-  ),
-);
-    children.add(listElement);
-    }
-    } 
-          else if (snapshot.hasError) {
+              children.add(UserTile(
+                  userid: element.uid,
+                  username: element.email,
+                  udharscore: element.udharScore,
+                  url: element.imageURL,
+                  openForm: openForm));
+            }
+          } else if (snapshot.hasError) {
             children = <Widget>[
               const Icon(
                 Icons.error_outline,
@@ -113,7 +93,6 @@ class _UserListState extends State<UserList> {
 
           return Center(
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: children,
             ),
           );
@@ -136,3 +115,7 @@ class _UserListState extends State<UserList> {
 //           );
 //         },
 //       ),
+
+
+
+
