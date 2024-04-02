@@ -37,12 +37,12 @@ class TransactionTile extends StatelessWidget {
             ),
             // child: Icon(Icons.autorenew, color: Colors.white),
             child: Text(
-              amount.toString(),
+              '\u{20B9}$amount',
               style: TextStyle(fontSize: 30, color: Colors.white),
             ),
           ),
           title: Text(
-            name,
+            "$message$name",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -87,7 +89,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+        backgroundColor: Color(0x00d7a31a),
         body: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -103,7 +105,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Image.asset('assets/images/udhar_logo.png'),
                 ),
                 Card(
-                  margin: const EdgeInsets.all(20),
+                  color: Color.fromRGBO(58, 66, 86, 1.0),
+                  margin: const EdgeInsets.all(30),
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
@@ -120,6 +123,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             TextFormField(
                               decoration: const InputDecoration(
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  hoverColor: Colors.white,
                                   labelText: 'Email Address'),
                               keyboardType: TextInputType.emailAddress,
                               autocorrect: false,
@@ -138,7 +143,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             TextFormField(
                               decoration: const InputDecoration(
+                                hoverColor: Colors.white,
                                 labelText: 'Password',
+                                labelStyle: TextStyle(color: Colors.white),
                               ),
                               obscureText: true,
                               validator: (value) {
@@ -152,7 +159,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               },
                             ),
                             const SizedBox(
-                              height: 12,
+                              height: 20,
                             ),
                             if (_isAuthenticating)
                               const CircularProgressIndicator()
@@ -162,17 +169,25 @@ class _AuthScreenState extends State<AuthScreen> {
                                   _submit();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
+                                  backgroundColor: Colors.white,
                                 ),
-                                child: Text(_isLogin ? 'login' : 'Sign Up'),
+                                child: Text(
+                                  _isLogin ? 'login' : 'Sign Up',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
                               ),
                             if (!_isAuthenticating)
                               TextButton(
-                                child: Text(_isLogin
-                                    ? 'Create an account'
-                                    : 'I already have an account,Login'),
+                                child: Text(
+                                  _isLogin
+                                      ? 'Create an account'
+                                      : 'I already have an account,Login',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                                 onPressed: () {
                                   setState(() {
                                     _isLogin = !_isLogin;

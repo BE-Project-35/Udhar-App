@@ -5,19 +5,20 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:udhar_app/models/udhar_transaction.dart';
 import 'package:udhar_app/screens/RequestScreen.dart';
+import 'package:udhar_app/screens/UdharScreen.dart';
 import 'package:udhar_app/services/transaction_service.dart';
 import 'package:udhar_app/services/user_service.dart';
 import 'package:udhar_app/widgets/transactiontile.dart';
 
-class SentUdharRequests extends StatelessWidget {
-  const SentUdharRequests({super.key});
+class PendingSentUdhars extends StatelessWidget {
+  const PendingSentUdhars({super.key});
 
   void openRequestScreen(BuildContext context, String transactionid, int amount,
       String borrowerName, String lenderName, String endDate, String status) {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => RequestScreen(
+          builder: (context) => UdharScreen(
                 amount: amount,
                 transactionid: transactionid,
                 borrowername: borrowerName,
@@ -34,7 +35,7 @@ class SentUdharRequests extends StatelessWidget {
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
         body: Center(
           child: StreamBuilder<List<UdharTransaction>>(
-            stream: TransactionService().getSentUdharRequests(),
+            stream: TransactionService().getPendingUdharsGiven(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
@@ -72,7 +73,7 @@ class SentUdharRequests extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 30, bottom: 20),
                       child: Text(
-                        "UDHAR REQUESTS SENT",
+                        "UDHARS GIVEN",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
@@ -111,10 +112,10 @@ class SentUdharRequests extends StatelessWidget {
                                 )
                               },
                               child: TransactionTile(
-                                  name: snapshot.data![index].lenderName,
+                                  name: snapshot.data![index].borrowerName,
                                   status: snapshot.data![index].status,
                                   amount: snapshot.data![index].amount,
-                                  message: "Udhar request sent to "),
+                                  message: "Udhar Given to "),
                             );
                           },
                         ),

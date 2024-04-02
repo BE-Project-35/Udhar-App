@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:udhar_app/screens/pending_recieved_udhars.dart';
+import 'package:udhar_app/screens/pending_sent_udhars.dart';
 import 'package:udhar_app/screens/recieved_udhar_requests.dart';
 import 'package:udhar_app/screens/sent_udhar_requests.dart';
 import 'package:udhar_app/screens/users_list.dart';
@@ -19,6 +21,8 @@ class _HomeState extends State<Home> {
     const SentUdharRequests(),
     const RecievedUdharRequests(),
     const UserList(),
+    const PendingSentUdhars(),
+    const PendingRecievedUdhars(),
   ];
 
   void _onItemTapped(int index) {
@@ -38,6 +42,7 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         selectedIconTheme: const IconThemeData(color: Colors.yellowAccent),
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.done_all),
@@ -49,6 +54,14 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_circle_outline),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pending),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.zoom_in_outlined),
             label: '',
           ),
         ],

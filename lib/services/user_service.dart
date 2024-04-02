@@ -10,7 +10,7 @@ import '../models/udhar_transaction.dart';
 
 class UserService {
   final DatabaseReference dbref = FirebaseDatabase.instance.ref();
-
+  final currentUser = FirebaseAuth.instance.currentUser;
   Future<String?> readValueById(String id) async {
     DatabaseEvent event = await dbref.child('users').child(id).once();
     DataSnapshot dataSnapshot = event.snapshot;
@@ -57,13 +57,15 @@ class UserService {
 
       if (snapshot.value != null) {
         Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+
         values.forEach((key, value) {
-          userList.add(UdharUser.fromJson(
-              value)); // Replace UdharUser.fromJson with your parsing logic
+          UdharUser u = UdharUser.fromJson(value);
+          if (u.uid != currentUser!.uid) {
+            userList.add(u);
+          }
         });
       }
     } catch (error) {
-      // Handle errors if any
       print("Error: $error");
     }
 

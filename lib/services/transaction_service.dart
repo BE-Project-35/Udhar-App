@@ -29,9 +29,17 @@ class TransactionService {
         lenderName: lenderName);
     Map<String, dynamic> udharData = udhar.toJson();
 
-    await dbref.child("transactions").push().set(udharData);
+    await dbref.child("transactions").child(uid).set(udharData);
 
     print('udhar request sent successfully');
+  }
+
+  void updateStatus(String id, String status) {
+    dbref.child('transactions').child(id).child('status').set(status);
+  }
+
+  void deleteTransaction(String id) {
+    dbref.child('transactions').child(id).remove();
   }
 
   Stream<List<UdharTransaction>> getSentUdharRequests() {
@@ -66,6 +74,48 @@ class TransactionService {
         values!.forEach((key, value) {
           if (value['lenderID'] == currentUser.uid &&
               value['status'] == "requested") {
+            requestList.add(UdharTransaction.fromJson(value));
+          }
+          print(requestList);
+          // requestList.add(UdharTransaction.fromJson(value));
+        });
+      }
+      return requestList;
+    });
+  }
+
+  Stream<List<UdharTransaction>> getPendingUdharsGiven() {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    print(currentUser!.uid);
+    return dbref.child('transactions').onValue.map((event) {
+      List<UdharTransaction> requestList = [];
+      if (event.snapshot.value != null) {
+        Map<dynamic, dynamic>? values =
+            event.snapshot.value as Map<dynamic, dynamic>?;
+        values!.forEach((key, value) {
+          if (value['lenderID'] == currentUser.uid &&
+              value['status'] == "accepted") {
+            requestList.add(UdharTransaction.fromJson(value));
+          }
+          print(requestList);
+          // requestList.add(UdharTransaction.fromJson(value));
+        });
+      }
+      return requestList;
+    });
+  }
+
+  Stream<List<UdharTransaction>> getPendingUdharsTaken() {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    print(currentUser!.uid);
+    return dbref.child('transactions').onValue.map((event) {
+      List<UdharTransaction> requestList = [];
+      if (event.snapshot.value != null) {
+        Map<dynamic, dynamic>? values =
+            event.snapshot.value as Map<dynamic, dynamic>?;
+        values!.forEach((key, value) {
+          if (value['borrowerID'] == currentUser.uid &&
+              value['status'] == "accepted") {
             requestList.add(UdharTransaction.fromJson(value));
           }
           print(requestList);
