@@ -58,7 +58,7 @@ class PendingRecievedUdhars extends StatelessWidget {
                           ),
                           SizedBox(width: 8),
                           Text(
-                            'No data Available',
+                            'No udhars taken at the moment',
                             textDirection: TextDirection.ltr,
                             style: TextStyle(
                               fontSize: 20,
@@ -71,17 +71,17 @@ class PendingRecievedUdhars extends StatelessWidget {
               } else {
                 return Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 30, bottom: 20),
-                      child: Text(
-                        "UDHARS TAKEN",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.yellowAccent,
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   margin: EdgeInsets.only(top: 30, bottom: 20),
+                    //   child: Text(
+                    //     "UDHARS TAKEN",
+                    //     style: TextStyle(
+                    //       fontWeight: FontWeight.bold,
+                    //       fontSize: 30,
+                    //       color: Colors.yellowAccent,
+                    //     ),
+                    //   ),
+                    // ),
                     Expanded(
                       child: SizedBox(
                         height: 200,

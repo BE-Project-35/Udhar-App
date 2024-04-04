@@ -56,7 +56,7 @@ class SentUdharRequests extends StatelessWidget {
                           ),
                           SizedBox(width: 8),
                           Text(
-                            'No data Available',
+                            'No Udhar requests sent',
                             textDirection: TextDirection.ltr,
                             style: TextStyle(
                               fontSize: 20,
@@ -69,17 +69,17 @@ class SentUdharRequests extends StatelessWidget {
               } else {
                 return Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 30, bottom: 20),
-                      child: Text(
-                        "UDHAR REQUESTS SENT",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.yellowAccent,
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   margin: EdgeInsets.only(top: 30, bottom: 20),
+                    //   child: Text(
+                    //     "UDHAR REQUESTS SENT",
+                    //     style: TextStyle(
+                    //       fontWeight: FontWeight.bold,
+                    //       fontSize: 30,
+                    //       color: Colors.yellowAccent,
+                    //     ),
+                    //   ),
+                    // ),
                     Expanded(
                       child: SizedBox(
                         height: 200,

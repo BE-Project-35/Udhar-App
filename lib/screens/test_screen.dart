@@ -72,6 +72,9 @@ class _TestState extends State<Test> {
 
   final List<UdharTransaction> list = [];
 
+  Future<String?> getemail() async {
+    return await UserService().readValueById("0K5FWnJ5qhf4kKf7ymwaVSSgrw83");
+  }
   // getUsers() async {
   //   final snapshot =
   //       await FirebaseDatabase.instance.ref('udhar-transaction').get();
@@ -106,7 +109,10 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: createTransaction,
+      onPressed: () async {
+        String? s = await getemail();
+        print(s);
+      },
       child: const Text("hi"),
     );
   }

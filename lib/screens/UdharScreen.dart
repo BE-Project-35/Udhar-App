@@ -36,7 +36,9 @@ class _RequestScreenState extends State<UdharScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-      appBar: topAppBar,
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+      ),
       body: Column(
         children: [
           SizedBox(

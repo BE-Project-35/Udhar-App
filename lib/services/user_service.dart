@@ -23,11 +23,46 @@ class UserService {
       dynamic value = dataMap['email'];
       // Check if the value is not null
       if (value != null) {
-        return value.toString();
+        return value;
       }
     }
     return null;
   }
+
+  Future<String?> getURLfromID(String id) async {
+    DatabaseEvent event = await dbref.child('users').child(id).once();
+    DataSnapshot dataSnapshot = event.snapshot;
+    // Check if dataSnapshot exists and contains the value
+    if (dataSnapshot.value != null) {
+      // Cast dataSnapshot.value to Map<String, dynamic>
+      Map<dynamic, dynamic> dataMap =
+          dataSnapshot.value as Map<dynamic, dynamic>;
+      // Access the value using the [] operator with the key 'your_value_key'
+      dynamic value = dataMap['imageURL'];
+      // Check if the value is not null
+      if (value != null) {
+        return value;
+      }
+    }
+    return null;
+  }
+
+//   Future<String?> getUserName(String uid) async {
+//   // Reference to the 'users' node in your database
+//   DatabaseReference usersRef = FirebaseDatabase.instance.reference().child('users');
+
+//   // Fetch the user's name from the database
+//   DataSnapshot snapshot = await usersRef.child(uid).child('name').once();
+
+//   // Check if the snapshot has data
+//   if (snapshot.value != null) {
+//     // Return the user's name
+//     return snapshot.value.toString();
+//   } else {
+//     // Return null if user not found or name not available
+//     return null;
+//   }
+// }
 
   // Future<List<UdharUser>> getUdharUsers() {
   //   List<UdharUser> itemlist = [];

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,11 +32,15 @@ class RequestScreen extends StatefulWidget {
 
 class _RequestScreenState extends State<RequestScreen> {
   TransactionService ts = TransactionService();
+  final currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-      appBar: topAppBar,
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+      ),
       body: Column(
         children: [
           SizedBox(
@@ -127,26 +132,33 @@ class _RequestScreenState extends State<RequestScreen> {
           SizedBox(
             height: 30,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    ts.updateStatus(widget.transactionid, "accepted");
-                    Navigator.pop(context);
-                  },
-                  child: Text("Accept Udhaar")),
-              SizedBox(
-                width: 50,
-              ),
-              ElevatedButton(
+          widget.lenderName == currentUser!.email
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          ts.updateStatus(widget.transactionid, "accepted");
+                          Navigator.pop(context);
+                        },
+                        child: Text("Accept Udhaar")),
+                    SizedBox(
+                      width: 50,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          ts.deleteTransaction(widget.transactionid);
+                          Navigator.pop(context);
+                        },
+                        child: Text("Reject Udhaar"))
+                  ],
+                )
+              : ElevatedButton(
                   onPressed: () {
                     ts.deleteTransaction(widget.transactionid);
                     Navigator.pop(context);
                   },
-                  child: Text("Reject Udhaar")),
-            ],
-          )
+                  child: Text("Delete your request"))
         ],
       ),
     );
