@@ -1,6 +1,6 @@
 # udhar_app
 
-A new Flutter project.
+An android application for lending money with your contacts.
 
 ## Getting Started
 
